@@ -630,7 +630,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private boolean mHandleVolumeKeysInWM;
 
-    boolean mHomeWakeScreen;
     boolean mBackWakeScreen;
     boolean mMenuWakeScreen;
     boolean mAssistWakeScreen;
@@ -2806,10 +2805,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_CURRENT);
 
             // Hardware button wake
-            mHomeWakeScreen = (Settings.System.getIntForUser(resolver,
-                    Settings.System.HOME_WAKE_SCREEN, 1,
-                    UserHandle.USER_CURRENT) == 1) &&
-                    ((mDeviceHardwareWakeKeys & KEY_MASK_HOME) != 0);
             mBackWakeScreen = (Settings.System.getIntForUser(resolver,
                     Settings.System.BACK_WAKE_SCREEN, 0,
                     UserHandle.USER_CURRENT) == 1) &&
@@ -7057,7 +7052,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
             case KeyEvent.KEYCODE_HOME:
                 if (down && !interactive) {
-                    isWakeKey = mHomeWakeScreen;
+                    isWakeKey = true;
                     if (!isWakeKey) {
                         useHapticFeedback = false;
                     }
